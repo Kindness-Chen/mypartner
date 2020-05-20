@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>     
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>307陈升锐</title>     
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!--<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.mobile.min.js"></script>-->
+<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />     
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>     
+<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+<style type="text/css" th:inline="text">
+	.ui-icon-main{ background-image:url([[@{/images/main.png}]]);}
+	.ui-icon-myself{ background-image:url([[@{/images/myself.png}]]);}
+	.ui-icon-music{ background-image:url([[@{/images/music.png}]]);}
+	.ui-icon-memory{ background-image:url([[@{/images/memory.png}]]);}
+	.ui-icon-like{ background-image:url([[@{images/like.png}]]);}
+	.ui-icon{ background-size:18px 26px;}
+</style>
+<script>
+	function loginout() {
+		window.location.href="/mypartner/log"
+	}
+	function main() {
+		window.location.href="/mypartner/main"
+	}
+</script>
+
+<script type="text/javascript" th:inline="javascript">
+	$(function() {
+		var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+		$.ajax({
+			type:"get",
+			url:basePath+'/getCount',
+			xhrFields: {
+			    withCredentials: true
+			},
+			success:function(data){
+				if(data > 0)
+				$("#countZan").text(data);
+			}
+		})
+	})
+</script>
+<script type="text/javascript" th:inline="javascript">
+	function insertDiscuss(){
+   	var argue = $("#argue").val();
+   	var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+   	$.ajax({
+   		type:"post",
+   		url:basePath+'/insertDiscuss',
+   		dataType:"json",
+   		contentType:"application/json;charset=UTF-8",
+   		data:"{\"argue\":\""+argue+"\"}",
+   		success:function(data){
+   			if(data.result == "success"){
+   				alert("恭喜您，评论成功！！！");
+   				window.location.href = "/mypartner/myself"
+   			}   			
+   		}
+   	})
+   }
+</script>
+
+<script type="text/javascript" th:inline="javascript">
+	var i;
+	$(function(){
+		var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+		$.ajax({
+			type:"get",
+			url:basePath+'/selectDiscussAll',
+			async:false,
+			success:function(data){
+				for (i = 0; i < data.length; i++) {
+					var table = document.getElementById("table");
+					var tr = document.createElement("tr");
+					table.appendChild(tr);
+					
+					var td1 = document.createElement("td");
+					var td2 = document.createElement("td");
+
+					td1.innerHTML = data[i].id;
+					td2.innerHTML = data[i].argue;
+
+					tr.appendChild(td1);
+					tr.appendChild(td2);
+				}
+			}
+		});
+	})	
+	
+	function getZan(){
+		var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+		$.ajax({
+			type:"get",
+			url:basePath+'/findUser',
+			xhrFields: {
+			    withCredentials: true
+			},
+			success:function(data){
+				var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+				if(data == "success"){
+					
+					$.ajax({
+						type:"get",
+						url:basePath+'/deleteUser',
+						xhrFields: {
+						    withCredentials: true
+						},
+						success:function(data){
+							var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+							if(data > 0){
+								$.ajax({
+									type:"get",
+									url:basePath+'/getCount',
+									xhrFields: {
+									    withCredentials: true
+									},
+									success:function(data){
+										$("#countZan").text(data);
+									}
+								})
+							} 
+						}
+					})
+					
+					
+				} else {
+					
+					$.ajax({
+						type:"get",
+						url:basePath+'/addUser',
+						xhrFields: {
+						    withCredentials: true
+						},
+						success:function(data){
+							var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+							if(data > 0){
+								$.ajax({
+									type:"get",
+									url:basePath+'/getCount',
+									xhrFields: {
+									    withCredentials: true
+									},
+									success:function(data){
+										$("#countZan").text(data);
+									}
+								})
+							} 
+						}
+					})
+				}
+			}
+		})
+		
+	}
+</script>
+
+	</head>
+	<body>	
+		<div data-role = "page" data-theme="c" >
+			<div data-role = "header" data-position="fixed" data-tap-toggle="false" data-theme = "a">
+				<a href="login.html"  onclick="loginout()">退出登录</a>
+				<h1>我的成长轨迹</h1>
+				<a>设置</a>
+			</div>
+			<ul data-role="listview" style="margin-top:10px;">
+				<li data-role="list-divider">2016年9月-2017年6月<span class="ui-li-count">1</span></li>
+				<li><a href="#popup_1" data-rel = "popup">
+					<img src="img/train.jpg" th:src="@{images/train.jpg}" style="height:100px;"/>
+					<h2>大学第一年</h2>
+					<p>刚进入大学，军训开始</p>
+				</a></li>
+								
+				<li data-role="list-divider">2017年9月-2018年6月<span class="ui-li-count">2</span></li>
+				<li><a href="#popup_2" data-rel = "popup">
+					<img src="img/schoolactivity.jpg" th:src="@{/images/schoolactivity.jpg}" style="height: 100px;" />
+					<h2>大学第二年</h2>
+					<p>加入学生会，开始忙于学生会工作</p>
+				</a></li>
+								
+				<li data-role="list-divider">2018年9月-2019年6月<span class="ui-li-count">3</span></li>
+				<li><a href="#popup_3" data-rel = "popup">
+					<img src="img/study.jpg" th:src="@{/images/study.jpg}" style="height: 100px;"/>
+					<h2>大学第三年</h2>
+					<p>学习压力增大，开始考证，认真备考</p>
+				</a></li>
+
+				<li data-role="list-divider">2019年9月-2020年6月<span class="ui-li-count">4</span></li>
+				<li><a href="#popup_4" data-rel = "popup">
+					<img src="img/graduate.jpg" th:src="@{/images/graduate.jpg}" style="height: 100px;"/>
+					<h2>大学第四年</h2>
+					<p>我们毕业啦，开始步入社会</p>
+				</a></li>
+				
+				<li data-role="list-divider">联系方式<span class="ui-li-count">5</span></li>
+				<li><a href="#popup_5" data-rel = "popup">
+					<img src="img/csr.jpg" th:src="@{/images/csr.jpg}" style="height: 100px;"/>
+					<h2>姓名：陈升锐</h2>
+					<h2>电话：13046225259</h2>
+				</a></li>
+			</ul>
+			
+			<div data-role="popup" id="popup_1">
+			<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<img src="img/train.jpg" th:src="@{images/train.jpg}" style="max-height:512px;">
+			</div>
+			<div data-role="popup" id="popup_2">
+			<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<img src="img/schoolactivity.jpg" th:src="@{/images/schoolactivity.jpg}" style="max-height:512px;">
+			</div>
+			<div data-role="popup" id="popup_3">
+			<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<img src="img/study.jpg" th:src="@{/images/study.jpg}" style="max-height:512px;">
+			</div>
+			<div data-role="popup" id="popup_4">
+			<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<img src="img/graduate.jpg" th:src="@{/images/graduate.jpg}" style="max-height:512px;">
+			</div>
+			<div data-role="popup" id="popup_5">
+			<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<img src="img/csr.jpg" th:src="@{/images/csr.jpg}" style="max-height:512px;">
+			</div>
+
+			<!--	点赞功能以及评论功能		-->
+			<div data-role = "content">				
+				<label>如果你觉得我可以，就给我点个赞吧！
+				<a href="#" onclick="getZan()"><img src="img/like.png" th:src="@{/images/like.png}" style="width: 5%; height: 5%;"></img></a>
+				<span id="countZan"></span></label>	
+				
+				<form>
+				<input type="text" name="argue" id="argue" placeholder="请输入评论"/>
+				<input type="submit" value="评论" onclick="insertDiscuss()" />
+				</form>
+				<input type="button" value="刷新查看评论" onclick="location.reload()">
+			<!--	评论内容显示			-->
+			<div data-role="content" align="center" style="width: 100%;">
+				<table border="1" id="table" width="80%" height="50px" >
+				<tr id="tr1">
+					<td id="id" align="center" >编号</td>
+					<td id="argue" align="center">评论内容</td>
+				</tr>
+				</table>
+		</div>
+		
+			</div>
+			<div data-role = "footer" data-position = "fixed" data-tap-toggle="false" data-theme = "a">
+				<div data-role="navbar">
+					<ul>
+						<li><a id="main" href="main.html" th:href="@{/main}" data-icon="main" onclick="main()">首页</a></li>
+						<li><a id="myself" href="myself.html" th:href="@{/myself}"data-icon="myself" >我的成长轨迹</a></li>
+						<li><a id="music" href="music.html" th:href="@{/music}"data-icon="music">我喜欢的歌曲</a></li>
+						<li><a id="memory" href="memory.html" th:href="@{/memory}"data-icon="memory" >我的印象</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

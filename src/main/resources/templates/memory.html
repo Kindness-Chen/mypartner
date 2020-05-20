@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>     
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>307陈升锐</title>     
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />     
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>     
+<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+<style type="text/css" th:inline="text">
+	.ui-icon-main{ background-image:url([[@{/images/main.png}]]);}
+	.ui-icon-myself{ background-image:url([[@{/images/myself.png}]]);}
+	.ui-icon-music{ background-image:url([[@{/images/music.png}]]);}
+	.ui-icon-memory{ background-image:url([[@{/images/memory.png}]]);}
+	.ui-memorybackground{background-image: url([[@{/images/memorybackground.jpg}]]); background-repeat-x: inherit;background-size: 100% 100%;}
+	.ui-icon{ background-size:18px 26px;}
+</style> 
+<script>
+	function main() {
+		window.location.href="/mypartner/main"
+	}
+	function myself() {
+		window.location.href="/mypartner/myself"
+</script>
+	</head>
+	<body>
+		
+		<div data-role = "page" data-theme="c" class="ui-memorybackground">
+			<div data-role = "header" data-position="fixed" data-tap-toggle="false" data-theme = "a">
+				<a data-role="button" >返回</a>
+				<h1>我的印象</h1>
+				<a>设置</a>
+			</div>
+			<div data-role = "content">
+				<a href="#xiaoxue" data-rel = "popup" data-role = "button">小学印象</a>
+				<div data-role="popup" id="xiaoxue" class="ui-content" style="max-width:280px">
+				<a href="#" data-rel="back"  data-theme="a"  data-iconpos="notext" ></a>
+				<img src="img/xiaoxue.jpg" th:src="@{/images/xiaoxue.jpg}"/>
+				<p>小学对我印象最深的是我的班主任,我们的班主任总是在我们有困难的时候帮助我们。
+					无论是在学习上的问题，还是在生活上的问题都会替我们担心。班主任的严格教学对我印象最深，使得我们每个学生都严于律己。</p>
+			</div>
+				
+				<a href="#chuzhong" data-rel = "popup" data-role = "button">初中印象</a>
+				<div data-role="popup" id="chuzhong" class="ui-content" style="max-width:280px">
+				<a href="#" data-rel="back"  data-theme="a"  data-iconpos="notext" ></a>
+				<img src="img/chuzhong.jpg" th:src="@{/images/chuzhong.jpg}"/>
+				<p>初中时期，对我印象最深的就是，有一群无拘无束一起打篮球，一起打游戏，一起去玩的朋友。
+					朋友之间无论谁有困难，我们都会去帮助。在初中期间，我还参加过许多活动，既有成功的喜悦，又有失败的泪水。
+					初中时一段青春无限的时光。</p>
+			</div>
+			
+				<a href="#gaozhong" data-rel = "popup" data-role = "button">高中印象</a>
+				<div data-role="popup" id="gaozhong" class="ui-content" style="max-width:280px">
+				<a href="#" data-rel="back"  data-theme="a"  data-iconpos="notext" ></a>
+				<img src="img/gaozhong.jpg" th:src="@{/images/gaozhong.jpg}"/>
+				<p>高中的时光，转眼消逝。对于每一个学生来说，高中不搏等于白活。只有努力过的高中才值得回味。
+					高三的时候，每天起早贪黑，为的就是上学不迟到，能够准时到达课室开始学习。每天我都是提前半小时左右到达课室，
+					开始一天的早读，晚修。遇到学习上的难题，和同学讨论，向老师请教。课余时间和小伙伴一起打篮球，虽然每天
+					的时间都很紧，但是我过得很充实，如果能重头开始，我依然会选择重新读高三。</p>
+			</div>
+			
+					<a href="#daxue" data-rel = "popup" data-role = "button">大学印象</a>
+				<div data-role="popup" id="daxue" class="ui-content" style="max-width:280px">
+				<a href="#" data-rel="back"  data-theme="a"  data-iconpos="notext" ></a>
+				<img src="img/daxue.jpg" th:src="@{/images/daxue.jpg}"/>
+				<p>大学生活，相比于高中生活来说，比较轻松。每天都有许多充足的时间来做自己的事情。
+					我选择了加入了自己院的学生会，这样能丰富自己的大学生活。即使没有老师的严格监督下，我也会自主学习，
+					在大学期间，获得过奖学金、优秀大学生的称号。大学生活丰富多彩。转眼，大学生活也即将结束，我们也将踏上社会的
+					道路。这是一个新起点，我们不能停止脚步，要不断努力。</p>
+				</div>
+		
+			</div>
+			<div data-role = "footer" data-position = "fixed" data-tap-toggle="false" data-theme = "a">
+				<div data-role="navbar">
+					<ul>
+						<li><a id="main" href="main.html" th:href="@{/main}" data-icon="main" onclick="main()">首页</a></li>
+						<li><a id="myself" href="myself.html" th:href="@{/myself}"data-icon="myself" onclick="myself()">我的成长轨迹</a></li>
+						<li><a id="music" href="music.html" th:href="@{/music}"data-icon="music">我喜欢的歌曲</a></li>
+						<li><a id="memory" href="memory.html" th:href="@{/memory}"data-icon="memory">我的印象</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

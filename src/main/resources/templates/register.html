@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>     
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>307陈升锐</title>     
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!--<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.mobile.min.js"></script>-->
+<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />     
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>     
+<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+<style type="text/css" th:inline="text" >
+	.ui-register{background-image:url([[@{/images/register.jpg}]]);background-repeat-x: inherit;background-size: 100% 100%;}
+</style>
+<script type="text/javascript">
+	
+	function insertUser(){
+		alert("注册成功");
+	}	
+</script>
+	</head>
+	<body>
+		
+		<div data-role = "page" data-theme="c" class="ui-register">
+			<div data-role = "header" data-position="fixed" data-tap-toggle="false" data-theme = "a">
+				<a href="login.html" th:href="@{/log}">返回</a>
+				<h1>欢迎注册</h1>
+				<a>设置</a>
+			</div>
+			<h1 align="center">欢迎注册，我的伙伴</h1>
+			<div align="center">
+				<div style="margin-top: 10%; width: 80%;">
+					<form th:action="@{/insertUser}" method="post">
+						<input type="text" name="username" id="username" placeholder="请输入您的用户名" />
+						<input type="text" name="password" id="password"  placeholder="请输入您的密码" />
+						<input type="submit" value="注册" onclick="insertUser()"/>
+					</form>
+				</div>
+			</div>
+			<div data-role = "footer" data-position = "fixed" data-tap-toggle="false" data-theme = "a">
+				<h1>制作者：陈升锐</h1>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>307陈升锐</title>     
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!--<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.mobile.min.js"></script>-->
+<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />     
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>     
+<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+<style type="text/css">
+	.ui-icon-main{ background-image:url([[@{/images/main.png}]]);}
+	.ui-icon-myself{ background-image:url([[@{/images/myself.png}]]);}
+	.ui-icon-music{ background-image:url([[@{/images/music.png}]]);}
+	.ui-icon-memory{ background-image:url([[@{/images/memory.png}]]);}
+	.ui-icon{ background-size:18px 26px;}
+</style>
+<script>
+	function main() {
+		window.location.href="mypartner/main"
+	}
+	function myself() {
+		window.location.href = "mypartner/myself"
+	}
+</script>
+	</head>
+	<body>		
+		<div data-role = "page" data-theme="c" >
+			<div data-role = "header" data-position="fixed" data-tap-toggle="false" data-theme = "a">
+				<a data-role="button" >返回</a>
+				<h1>我喜欢的歌曲</h1>
+				<a>设置</a>
+			</div>
+			
+			<div data-role="content">
+			<div data-role="controlgroup">
+				<a href="#" data-role="button">东风破</a>
+				<a href="#" data-role="button">
+					<img src="img/zhou.jpg" th:src="@{/images/zhou.jpg}" style="width:100%; border-radius: 50%; width: 200px;height: 200px;"/>
+				</a>
+				<a href="#" data-role="button">歌手</a> 
+				<a href="#" data-role="button">周杰伦</a> 
+			</div>
+				 <div align="center"><audio src="music/musicplay.mp3" th:src="@{/music/musicplay.mp3}" controls="controls" >周杰伦</audio></div>
+		</div>
+			<div data-role = "footer" data-position = "fixed" data-tap-toggle="false" data-theme = "a">
+				<div data-role="navbar">
+					<ul>
+						<li><a id="main" href="main.html" th:href="@{/main}" data-icon="main" onclick="main()">首页</a></li>
+						<li><a id="myself" href="myself.html" th:href="@{/myself}"data-icon="myself" onclick="myself()">我的成长轨迹</a></li>
+						<li><a id="music" href="music.html" th:href="@{/music}"data-icon="music" >我喜欢的歌曲</a></li>
+						<li><a id="memory" href="memory.html" th:href="@{/memory}"data-icon="memory" >我的印象</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>     
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的伙伴</title>     
+<meta name="viewport" content="width=device-width, initial-scale=1">     
+<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>     
+<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+<script type="text/javascript">
+	
+	function insertUser(){
+		alert("注册成功");
+	}
+	function reg() {
+		window.location.href="/mypartner/reg"
+	}
+</script>
+ <script type="text/javascript" th:inline="javascript">
+   function login(){
+   	var username = $("#username").val();
+   	var password = $("#password").val();
+   	var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+   	$.ajax({
+   		type:"post",
+   		url:basePath+'/login',
+   		dataType:"json",
+   		contentType:"application/json;charset=UTF-8",
+   		data:"{\"username\":\""+username+"\",\"password\":\""+password+"\"}",
+   		xhrFields: {
+		    withCredentials: true
+		},
+   		success:function(data){
+   			if(data.result == "success"){
+   				alert("恭喜您，登录成功！！！");
+ 				window.location.href = "/mypartner/main"
+ 				
+   			}else {
+   				alert("用户名或密码错误！！！");
+   				window.location.href = "/mypartner/log"
+   			}
+   			
+   		}
+   	})
+   }
+</script>
+</head>               
+<body>
+	<div data-role="page">
+		<div data-role="content">
+			<h1 align="center">欢迎登录，我的伙伴</h1>
+			<div align="center"><img th:src="@{/images/csr.jpg}" style="width:150px;height: 150px; border-radius: 50%;"/></div>
+
+			<form> 
+				<input type="text" name="username" id="username" placeholder="请输入您的用户名"  />
+				<input type="password" name="password" id="password" placeholder="请输入您的密码"  />
+				<input type="submit" value="登录" onclick="login()"/>
+			</form>
+			<a  th:href="@{/reg}" type="button" onclick="reg()">注册</a>
+		</div>
+   </div>
+</body>
+</html>
